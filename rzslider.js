@@ -1129,8 +1129,9 @@ function throttle(func, wait, options) {
       if(this.range)
       {
         /* This is to check if we need to switch the min and max handles*/
-        if (this.tracking === 'rzSliderModel' && newValue >= this.scope.rzSliderHigh)
+        if (this.tracking === 'rzSliderModel' && newValue > this.scope.rzSliderHigh)
         {
+          return;
           this.scope[this.tracking] = this.scope.rzSliderHigh;
           this.updateHandles(this.tracking, this.maxH.rzsl);
           this.tracking = 'rzSliderHigh';
@@ -1140,8 +1141,8 @@ function throttle(func, wait, options) {
           this.scope.$apply();
           this.callOnChange();
         }
-        else if(this.tracking === 'rzSliderHigh' && newValue <= this.scope.rzSliderModel)
-        {
+        else if(this.tracking === 'rzSliderHigh' && newValue < this.scope.rzSliderModel)
+        { return;
           this.scope[this.tracking] = this.scope.rzSliderModel;
           this.updateHandles(this.tracking, this.minH.rzsl);
           this.tracking = 'rzSliderModel';
