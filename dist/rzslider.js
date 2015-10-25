@@ -634,7 +634,7 @@ function throttle(func, wait, options) {
         this.selBar.addClass('rz-draggable');
       }
     },
-    
+
     /**
      * Adds accessibility atributes
      *
@@ -1033,7 +1033,18 @@ function throttle(func, wait, options) {
      */
     valueToOffset: function(val)
     {
-      return (val - this.minValue) * this.maxLeft / this.valueRange || 0;
+      return (this.sanitizeOffsetValue(val) - this.minValue) * this.maxLeft / this.valueRange || 0;
+    },
+
+    /**
+     * Ensure that the position rendered is within the slider bounds, even if the value is not
+     *
+     * @param {number} val
+     * @returns {number}
+     */
+    sanitizeOffsetValue: function(val)
+    {
+      return Math.min(Math.max(val, this.minValue), this.maxValue);
     },
 
     /**
